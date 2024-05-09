@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .expenseListRow {
+            border: 2px solid rgb(237, 237, 237);
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="flex item-center justify-center">
+    <div class="container flex flex-col gap-4  w-2/3 mt-24 max-h-3/5 bg-zinc-100 px-10 py-10">
+        <h2 class="text-2xl font-bold">Expense Tracker</h2>
+        <form id="expenseForm">
+            <input type="text" id="description" placeholder="Expense Description" required
+                class="border-2 border-zinc-200 w-11/12 py-2 rounded-sm px-2 my-2" />
+            <br />
+            <select id="category" required class="border-2 border-zinc-200 w-11/12 py-2 rounded-sm px-2 my-2">
+                <option value="">Select Category</option>
+                <option value="Food">Food</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Others">Others</option>
+            </select>
+            <br />
+            <input type="number" id="amount" placeholder="Amount" required
+                class="border-2 border-zinc-200 w-11/12 py-2 rounded-sm px-2 my-2"><br />
+            <input type="submit" value="Add Expense"
+                class="border-2 border-emerald-500 w-11/12 py-2 rounded-sm px-2 my-2 bg-emerald-500 font-semibold text-white hover:bg-emerald-600 hover:border-emerald-600">
+        </form>
+        <h3 class="text-xl font-semibold">Expense Summary</h3>
+        <table id="expenseTable" class="w-11/12">
+            <thead>
+                <tr class="bg-emerald-500 text-white">
+                    <th class="border-2 py-2">Description</th>
+                    <th class="border-2 py-2">Category</th>
+                    <th class="border-2 py-2">Amount</th>
+                </tr>
+            </thead>
+            <tbody id="expenseList">
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const expenseForm = document.getElementById('expenseForm');
+        const expenseList = document.getElementById('expenseList');
+
+        expenseForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const description = document.getElementById('description').value
+
+            const category = document.getElementById('category').value;
+
+            const amount = document.getElementById('amount').value;
+
+            if (description && category && !isNaN(amount)) {
+                const newRow = document.createElement('tr')
+
+                newRow.innerHTML = `<td class='expenseListRow'>${description}</td>
+                <td class='expenseListRow'>${category}</td>
+                <td class='expenseListRow'>${amount}</td>
+                `
+                newRow.classList.add('expenseListRow')
+                expenseList.appendChild(newRow)
+            }
+            document.getElementById('description').value = ''
+            document.getElementById('category').value = ''
+            document.getElementById('amount').value = ''
+        })
+
+    </script>
+</body>
+
+</html>
